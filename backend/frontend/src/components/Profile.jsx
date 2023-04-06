@@ -77,7 +77,6 @@ function Profile() {
                 <Paper
                     elevation={5}
                     sx={{
-                        marginTop: 4,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Alert, Avatar, Container, Box, Paper, Typography, TextField, Button } from '@mui/material'
+import { Alert, Avatar, Grid, Box, Paper, Typography, TextField, Button } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { useCookies } from 'react-cookie'
 import { Constants } from '../utils/constants'
@@ -59,15 +59,19 @@ function Auth() {
     }
 
     return (
-        <Container component='main' maxWidth='xs'>
+        <Grid
+            container
+            alignItems="center"
+            justifyContent="center"
+            sx={{ backgroundColor: 'primary.main', minHeight: '100vh' }}>
             <Paper
                 elevation={5}
                 sx={{
-                    marginTop: 8,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    padding: '2rem'
+                    padding: '2rem',
+                    maxWidth: '444px'
                 }}
             >
                 <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -111,7 +115,7 @@ function Auth() {
                     </Button>
                 </Box>
             </Paper>
-        </Container>
+        </Grid>
     )
 }
 

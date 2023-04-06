@@ -30,9 +30,9 @@ function ResponsiveDrawer(props) {
     const container = window !== undefined ? () => window().document.body : undefined
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', backgroundColor: 'primary.main', minHeight: '100vh' }}>
             <AppBar
-                // elevation={0}
+                elevation={0}
                 position='fixed'
                 sx={{
                     width: { md: `calc(100% - ${drawerWidth}px)` },
@@ -54,10 +54,7 @@ function ResponsiveDrawer(props) {
                     <DrawerMenu />
                 </Toolbar>
             </AppBar>
-            <Box
-                component='nav'
-                sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
-            >
+            <Box component='nav' sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}>
                 <Drawer
                     container={container}
                     variant='temporary'
@@ -77,19 +74,23 @@ function ResponsiveDrawer(props) {
                     variant='permanent'
                     sx={{
                         display: { xs: 'none', md: 'block' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', borderColor: 'primary.main', width: drawerWidth },
                     }}
                     open
                 >
                     <DrawerItemList />
                 </Drawer>
             </Box>
-            <Box
-                component='main'
-                sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${drawerWidth}px)` } }}
-            >
+            <Box component='main' sx={{ flexGrow: 1, p: 1, width: { md: `calc(100% - ${drawerWidth}px)` } }}>
                 <Toolbar />
-                {props.content}
+                <Box sx={{
+                    backgroundColor: 'background.default',
+                    borderRadius: '8px',
+                    p: 2,
+                    minHeight: 'calc(100vh - 112px)' // 112 px equals toolbar height plus paddings and margins
+                }}>
+                    {props.content}
+                </Box>
             </Box>
         </Box>
     )
