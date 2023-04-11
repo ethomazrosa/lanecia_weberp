@@ -3,30 +3,30 @@ import {
     Toolbar, Divider, List, ListItem, ListItemButton,
     ListItemIcon, ListItemText, Typography, Collapse, Box
 } from '@mui/material'
-import { Link } from "react-router-dom"
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-import RequestQuoteOutlinedIcon from '@mui/icons-material/RequestQuoteOutlined';
-import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlined';
-import AppRegistrationOutlinedIcon from '@mui/icons-material/AppRegistrationOutlined';
-import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
-import CurrencyExchangeOutlinedIcon from '@mui/icons-material/CurrencyExchangeOutlined';
-import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
-import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import { Link } from 'react-router-dom'
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined'
+import RequestQuoteOutlinedIcon from '@mui/icons-material/RequestQuoteOutlined'
+import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlined'
+import AppRegistrationOutlinedIcon from '@mui/icons-material/AppRegistrationOutlined'
+import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined'
+import CurrencyExchangeOutlinedIcon from '@mui/icons-material/CurrencyExchangeOutlined'
+import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined'
+import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined'
+import ExpandLess from '@mui/icons-material/ExpandLess'
+import ExpandMore from '@mui/icons-material/ExpandMore'
 
 function DrawerItemList() {
 
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     const handleClick = () => {
-        setOpen(!open);
-    };
+        setOpen(!open)
+    }
 
     return (
         <Box sx={{ minHeight: '100vh', backgroundColor: 'primary.main' }}>
             <Toolbar>
-                <Typography variant='h6' noWrap component='div' align='center' sx={{ flexGrow: 1 }}>
+                <Typography variant='h5' noWrap component='div' align='center' sx={{ flexGrow: 1 }}>
                     Menu
                 </Typography>
             </Toolbar>
@@ -67,11 +67,11 @@ function DrawerItemList() {
                     <ListItemIcon>
                         <AppRegistrationOutlinedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Cadastros" />
+                    <ListItemText primary='Cadastros' />
                     {open ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding sx={{ pl: 2 }}>
+                <Collapse in={open} timeout='auto' unmountOnExit>
+                    <List component='div' disablePadding sx={{ pl: 1 }}>
                         <ListItemButton>
                             <ListItemIcon>
                                 <ShoppingBasketOutlinedIcon />
@@ -90,7 +90,7 @@ function DrawerItemList() {
                             </ListItemIcon>
                             <ListItemText primary='Clientes' />
                         </ListItemButton>
-                        <ListItemButton>
+                        <ListItemButton component={Link} to='/responsible_company'>
                             <ListItemIcon>
                                 <BusinessOutlinedIcon />
                             </ListItemIcon>

@@ -5,7 +5,7 @@ import { useCookies } from 'react-cookie'
 import { Constants } from '../utils/constants'
 import { useNavigate } from 'react-router-dom'
 import { usePost, useGet } from '../hooks/useApi'
-import ProgressBar from './ProgressBar'
+import { ProgressBar } from '../components'
 
 function Auth() {
 
@@ -38,11 +38,11 @@ function Auth() {
         if (token[Constants.TOKEN_NAME_COOKIE] && token[Constants.TOKEN_NAME_COOKIE] !== undefined) {
             getCurrentUser()
                 .then(response => {
-                    setToken(Constants.ID_USER_COOKIE, response[0]["id"], { path: '/' })
-                    setToken(Constants.USERNAME_COOKIE, response[0]["username"], { path: '/' })
-                    setToken(Constants.EMAIL_COOKIE, response[0]["email"], { path: '/' })
-                    setToken(Constants.FIRST_NAME_COOKIE, response[0]["first_name"], { path: '/' })
-                    setToken(Constants.LAST_NAME_COOKIE, response[0]["last_name"], { path: '/' })
+                    setToken(Constants.ID_USER_COOKIE, response[0]['id'], { path: '/' })
+                    setToken(Constants.USERNAME_COOKIE, response[0]['username'], { path: '/' })
+                    setToken(Constants.EMAIL_COOKIE, response[0]['email'], { path: '/' })
+                    setToken(Constants.FIRST_NAME_COOKIE, response[0]['first_name'], { path: '/' })
+                    setToken(Constants.LAST_NAME_COOKIE, response[0]['last_name'], { path: '/' })
                     setLoading(false)
                     navigate('/')
                 })
@@ -61,8 +61,8 @@ function Auth() {
     return (
         <Grid
             container
-            alignItems="center"
-            justifyContent="center"
+            alignItems='center'
+            justifyContent='center'
             sx={{ backgroundColor: 'primary.main', minHeight: '100vh' }}>
             <Paper
                 elevation={5}

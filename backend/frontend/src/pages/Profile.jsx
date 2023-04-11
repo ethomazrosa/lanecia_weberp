@@ -7,7 +7,7 @@ import { useGet, usePut } from '../hooks/useApi'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { Constants } from '../utils/constants'
-import ProgressBar from './ProgressBar'
+import { ProgressBar } from '../components'
 
 function Profile() {
 
@@ -75,7 +75,6 @@ function Profile() {
         <>
             <Container component='main' maxWidth='sm'>
                 <Paper
-                    elevation={5}
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',

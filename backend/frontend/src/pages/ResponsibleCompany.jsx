@@ -1,8 +1,11 @@
 import React from 'react'
+import { Typography } from '@mui/material'
 
 function ResponsibleCompany() {
   return (
-    <div>ResponsibleCompany</div>
+    <>
+        <Typography>Detail</Typography>
+    </>
   )
 }
 

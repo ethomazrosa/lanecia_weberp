@@ -48,7 +48,7 @@ function ResponsiveDrawer(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant='h6' noWrap component='div' align='center' sx={{ flexGrow: 1 }}>
+                    <Typography variant='h4' noWrap component='div' align='center' sx={{ flexGrow: 1 }}>
                         ERP Lan & Cia
                     </Typography>
                     <DrawerMenu />

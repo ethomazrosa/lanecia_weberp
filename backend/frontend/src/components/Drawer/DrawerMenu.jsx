@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { Constants } from '../../utils/constants'
 import { useGet } from '../../hooks/useApi'
 import { Avatar, Menu, MenuItem, Box, IconButton, Typography } from '@mui/material'
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined'
 
 function DrawerMenu() {
 
@@ -25,11 +25,11 @@ function DrawerMenu() {
     }
 
     function logoutUser() {
-        const cookies = document.cookie.split(";")
+        const cookies = document.cookie.split(';')
         for (const cookie of cookies) {
-            const eqPos = cookie.indexOf("=")
+            const eqPos = cookie.indexOf('=')
             const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie
-            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT"
+            document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT'
         }
         navigate('/auth')
     }

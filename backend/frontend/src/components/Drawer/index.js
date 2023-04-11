@@ -1,3 +1,3 @@
-import ResponsiveDrawer from "./ResponsiveDrawer";
+import ResponsiveDrawer from './ResponsiveDrawer'
 
-export default ResponsiveDrawer;
+export default ResponsiveDrawer
