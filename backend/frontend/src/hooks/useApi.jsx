@@ -15,7 +15,7 @@ function useGet(url) {
         }
     }
 
-    return [get]
+    return get
 }
 
 function usePost(url, isPublic = false) {
@@ -31,7 +31,7 @@ function usePost(url, isPublic = false) {
         }
     }
 
-    return [post]
+    return post
 }
 
 function usePut(url, isForm = false) {
@@ -51,7 +51,7 @@ function usePut(url, isForm = false) {
         }
     }
 
-    return [put]
+    return put
 }
 
 export { useGet, usePost, usePut }

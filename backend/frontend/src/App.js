@@ -29,10 +29,10 @@ function App() {
         <Routes>
           <Route path='/' element={<ResponsiveDrawer content={<Dashboard />} />} />
           <Route path='auth/' element={<Auth />} />
-          <Route path='quote/' element={<ResponsiveDrawer content={<Quote />} />} />
-          <Route path='profile/' element={<ResponsiveDrawer content={<Profile />} />} />
-          <Route path='responsible_company/' element={<ResponsiveDrawer content={<ResponsibleCompanyList />} />} />
-          <Route path='responsible_company/test' element={<ResponsiveDrawer content={<ResponsibleCompany />} />} />
+          <Route path='quotes/' element={<ResponsiveDrawer content={<Quote />} />} />
+          <Route path='profiles/' element={<ResponsiveDrawer content={<Profile />} />} />
+          <Route path='responsible_companies/' element={<ResponsiveDrawer content={<ResponsibleCompanyList />} />} />
+          <Route path='responsible_companies/:id' element={<ResponsiveDrawer content={<ResponsibleCompany />} />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

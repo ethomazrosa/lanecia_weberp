@@ -46,7 +46,7 @@ function DrawerItemList() {
                         </ListItemButton>
                     </ListItem>
                     <ListItem key='quotes' disablePadding>
-                        <ListItemButton component={Link} to='/quote'>
+                        <ListItemButton component={Link} to='/quotes'>
                             <ListItemIcon>
                                 <RequestQuoteOutlinedIcon />
                             </ListItemIcon>
@@ -90,7 +90,7 @@ function DrawerItemList() {
                             </ListItemIcon>
                             <ListItemText primary='Clientes' />
                         </ListItemButton>
-                        <ListItemButton component={Link} to='/responsible_company'>
+                        <ListItemButton component={Link} to='/responsible_companies'>
                             <ListItemIcon>
                                 <BusinessOutlinedIcon />
                             </ListItemIcon>

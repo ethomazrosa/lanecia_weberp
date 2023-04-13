@@ -16,8 +16,8 @@ function Profile() {
     const userId = userCookie[Constants.ID_USER_COOKIE]
     const [loading, setLoading] = useState(true)
     const [formData, setFormData] = useState({})
-    const [putProfile] = usePut(`http://127.0.0.1:8000/users/profiles/${userId}/`, true)
-    const [getProfile] = useGet(`http://127.0.0.1:8000/users/profiles/${userId}/`)
+    const putProfile = usePut(`http://127.0.0.1:8000/users/profiles/${userId}/`, true)
+    const getProfile = useGet(`http://127.0.0.1:8000/users/profiles/${userId}/`)
 
     function handleChange(e) {
         setFormData({ ...formData, [e.target.name]: e.target.value })
