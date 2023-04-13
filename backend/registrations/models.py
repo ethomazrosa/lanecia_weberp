@@ -13,7 +13,7 @@ class ResponsibleCompany(models.Model):
     mobile_phone = models.SmallIntegerField()
     address_name = models.CharField(max_length=250)
     address_number = models.SmallIntegerField()
-    address_complement = models.CharField(max_length=250)
+    address_complement = models.CharField(max_length=250, blank=True, null=True)
     neighborhood = models.CharField(max_length=250)
     city = models.CharField(max_length=250)
     state = models.CharField(max_length=2)

@@ -18,9 +18,16 @@ function useGet(url) {
     return get
 }
 
-function usePost(url, isPublic = false) {
+function usePost(url, isForm = false, isPublic = false) {
     const [token] = useCookies([Constants.TOKEN_NAME_COOKIE])
-    const config = isPublic ? {} : { headers: { Authorization: `Token ${token[Constants.TOKEN_NAME_COOKIE]}` } }
+    const headers = {}
+    if (!isPublic) {
+        headers['Authorization'] = `Token ${token[Constants.TOKEN_NAME_COOKIE]}`
+    }
+    if (isForm) {
+        headers['Content-Type'] = 'multipart/form-data'
+    }
+    const config = { headers }
 
     async function post(body) {
         try {
