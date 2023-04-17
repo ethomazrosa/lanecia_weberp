@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
-    Typography, Toolbar, IconButton, Grid, Card, Box,
-    Container, CardMedia, CardActionArea, CardActions,
+    Typography, Toolbar, IconButton, Grid, Card, Box, Button, DialogTitle,
+    CardContent, CardMedia, CardActionArea, CardActions, DialogActions, Dialog
 } from '@mui/material'
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined'
 import AddIcon from '@mui/icons-material/Add'
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import { useGet } from '../hooks/useApi'
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
+import { useGet, useDelete } from '../hooks/useApi'
 import { ProgressBar } from '../components'
 
 function ResponsibleCompany() {
 
+    const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
+    const [openConfirmation, setOpenConfirmation] = useState(false)
+    const [selectedCompany, setSelectedCompany] = useState(null)
     const getResponsibleCompanies = useGet('http://127.0.0.1:8000/registrations/responsible_companies/')
+    const deleteResponsibleCompany = useDelete(`http://127.0.0.1:8000/registrations/responsible_companies/${selectedCompany}/`)
     const [responsibleCompanies, setResponsibleCompanies] = useState([])
 
     useEffect(() => {
         getResponsibleCompanies()
             .then(response => {
-                setLoading(false)
                 setResponsibleCompanies(response)
+                setLoading(false)
             })
             .catch(error => {
                 console.log(error.response.data)
@@ -28,6 +32,25 @@ function ResponsibleCompany() {
             })
         // eslint-disable-next-line
     }, [])
+
+    function handleClickDelete(companyId) {
+        setSelectedCompany(companyId)
+        setOpenConfirmation(true)
+    }
+
+    function deleteCompany() {
+        setLoading(true)
+        deleteResponsibleCompany()
+            .then(response => {
+                // setOpenConfirmation(false)
+                // setLoading(false)
+                navigate(0)
+            })
+            .catch(error => {
+                console.log(error.response.data)
+                setLoading(false)
+            })
+    }
 
     if (loading) {
         return <ProgressBar />
@@ -55,11 +78,19 @@ function ResponsibleCompany() {
                     <AddIcon />
                 </IconButton>
             </Toolbar>
-            <Grid container sx={{ mt: 2 }} rowSpacing={2} columnSpacing={2} alignItems="stretch">
+            <Grid
+                container
+                sx={{
+                    mt: 2,
+                    display: 'flex',
+                    alignItems: 'stretch'
+                }}
+                rowSpacing={2}
+                columnSpacing={2}>
                 {responsibleCompanies.map((company) => {
                     return (
                         <Grid item xs={6} sm={4} lg={3} key={company.id}>
-                            <Card sx={{ px: 1 }}>
+                            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                                 <CardActionArea
                                     component={Link}
                                     to={`/responsible_companies/${company.id}`}
@@ -68,47 +99,36 @@ function ResponsibleCompany() {
                                         component='img'
                                         image={company.logo}
                                         alt={company.brand_name}
-                                        sx={{ height: 100, objectFit: 'contain' }}
+                                        sx={{ height: 125, objectFit: 'contain' }}
                                     />
                                 </CardActionArea>
-                                <CardActions>
-                                    <Box sx={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        alignItems: 'start',
-                                        width: '100%'
-                                    }}>
-                                        <Typography variant='h6' gutterBottom noWrap sx={{ display: { xs: 'flex' } }}>
-                                            {company.brand_name}
-                                        </Typography>
-                                        <Typography variant='body2' color='text.secondary' noWrap sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                                            {company.company_name}
-                                        </Typography>
-                                        <Typography variant='body2' color='text.secondary' sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                                            {company.email}
-                                        </Typography>
-                                        <Typography variant='body2' color='text.secondary' sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                                            {company.mobile_phone}
-                                        </Typography>
-                                        <Container
-                                            disableGutters
-                                            sx={{
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                alignItems: 'end',
-                                                paddingRight: 0
-                                            }}>
-                                            <IconButton color='error' onClick={null}>
-                                                <DeleteOutlinedIcon />
-                                            </IconButton>
-                                        </Container>
-                                    </Box>
+                                <CardContent sx={{p:1, pb: 0, flexGrow: 1}}>
+                                    <Typography variant='h6'>
+                                        {company.brand_name}
+                                    </Typography>
+                                    <Typography variant='body2' color='text.secondary' sx={{ display: { xs: 'none', sm: 'block' } }}>
+                                        {company.company_name}<br />
+                                        {company.email}<br />
+                                        {company.mobile_phone}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions sx={{p:1, pt: 0, alignSelf: 'flex-end'}}>
+                                    <IconButton color='error' sx={{ p: 0 }} onClick={() => handleClickDelete(company.id)}>
+                                        <DeleteOutlinedIcon />
+                                    </IconButton>
                                 </CardActions>
                             </Card>
                         </Grid>
                     )
                 })}
             </Grid>
+            <Dialog open={openConfirmation} onClose={() => setOpenConfirmation(false)}>
+                <DialogTitle>Tem certeza que deseja excluir a empresa responsável?</DialogTitle>
+                <DialogActions>
+                    <Button onClick={() => setOpenConfirmation(false)} autoFocus>Não</Button>
+                    <Button onClick={deleteCompany}>Sim</Button>
+                </DialogActions>
+            </Dialog>
         </>
     )
 }

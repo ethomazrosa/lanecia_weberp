@@ -61,4 +61,20 @@ function usePut(url, isForm = false) {
     return put
 }
 
-export { useGet, usePost, usePut }
+function useDelete(url) {
+    const [token] = useCookies([Constants.TOKEN_NAME_COOKIE])
+    const config = { headers: { Authorization: `Token ${token[Constants.TOKEN_NAME_COOKIE]}` } }
+
+    async function del() {
+        try {
+            const response = await Axios.delete(url, config)
+            return response.data
+        } catch (error) {
+            throw error
+        }
+    }
+
+    return del
+}
+
+export { useGet, usePost, usePut, useDelete }
