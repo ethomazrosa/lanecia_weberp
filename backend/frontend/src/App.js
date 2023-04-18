@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import { createTheme } from '@mui/material/styles'
 
 // Components
-import { Auth, Dashboard, Profile, Quote, ResponsibleCompany, ResponsibleCompanyList } from './pages'
+import { Auth, Dashboard, Profile, Quote, ResponsibleCompany, ResponsibleCompanyList, ProductList } from './pages'
 import { ResponsiveDrawer } from './components'
 
 const theme = createTheme({
@@ -33,6 +33,7 @@ function App() {
           <Route path='profiles/' element={<ResponsiveDrawer content={<Profile />} />} />
           <Route path='responsible_companies/' element={<ResponsiveDrawer content={<ResponsibleCompanyList />} />} />
           <Route path='responsible_companies/:id' element={<ResponsiveDrawer content={<ResponsibleCompany />} />} />
+          <Route path='products/' element={<ResponsiveDrawer content={<ProductList />} />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

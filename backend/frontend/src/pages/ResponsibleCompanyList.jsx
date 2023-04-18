@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
-    Typography, Toolbar, IconButton, Grid, Card, Box, Button, DialogTitle,
+    Typography, Toolbar, IconButton, Grid, Card, Button, DialogTitle,
     CardContent, CardMedia, CardActionArea, CardActions, DialogActions, Dialog
 } from '@mui/material'
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined'
@@ -59,22 +59,13 @@ function ResponsibleCompany() {
     return (
         <>
             <Toolbar variant='dense' disableGutters sx={{ minHeight: 20, height: 20 }}>
-                <IconButton
-                    component={Link}
-                    to='/'
-                    edge='start'
-                >
+                <IconButton component={Link} to='/' edge='start'>
                     <ArrowBackOutlinedIcon />
                 </IconButton>
                 <Typography variant='h6' component='div' sx={{ flexGrow: 1, textAlign: 'center' }}>
                     Empresas Responsáveis
                 </Typography>
-                <IconButton
-                    color='inherit'
-                    component={Link}
-                    to='/responsible_companies/:new'
-                    edge='end'
-                >
+                <IconButton color='inherit' component={Link} to='/responsible_companies/:new' edge='end'>
                     <AddIcon />
                 </IconButton>
             </Toolbar>
@@ -102,7 +93,7 @@ function ResponsibleCompany() {
                                         sx={{ height: 125, objectFit: 'contain' }}
                                     />
                                 </CardActionArea>
-                                <CardContent sx={{p:1, pb: 0, flexGrow: 1}}>
+                                <CardContent sx={{ p: 1, pb: 0, flexGrow: 1 }}>
                                     <Typography variant='h6'>
                                         {company.brand_name}
                                     </Typography>
@@ -112,7 +103,7 @@ function ResponsibleCompany() {
                                         {company.mobile_phone}
                                     </Typography>
                                 </CardContent>
-                                <CardActions sx={{p:1, pt: 0, alignSelf: 'flex-end'}}>
+                                <CardActions sx={{ p: 1, pt: 0, alignSelf: 'flex-end' }}>
                                     <IconButton color='error' sx={{ p: 0 }} onClick={() => handleClickDelete(company.id)}>
                                         <DeleteOutlinedIcon />
                                     </IconButton>

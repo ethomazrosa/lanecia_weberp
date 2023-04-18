@@ -81,13 +81,13 @@ function ResponsiveDrawer(props) {
                     <DrawerItemList />
                 </Drawer>
             </Box>
-            <Box component='main' sx={{ flexGrow: 1, p: 1, width: { md: `calc(100% - ${drawerWidth}px)` } }}>
+            <Box component='main' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, p: 1 }}>
                 <Toolbar />
                 <Box sx={{
                     backgroundColor: 'background.default',
                     borderRadius: '8px',
                     p: 2,
-                    minHeight: 'calc(100vh - 112px)' // 112 px equals toolbar height plus paddings and margins
+                    flexGrow: 1
                 }}>
                     {props.content}
                 </Box>

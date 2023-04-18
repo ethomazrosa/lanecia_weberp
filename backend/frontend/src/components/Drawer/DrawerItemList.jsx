@@ -24,7 +24,7 @@ function DrawerItemList() {
     }
 
     return (
-        <Box sx={{ minHeight: '100vh', backgroundColor: 'primary.main' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100%', backgroundColor: 'primary.main' }}>
             <Toolbar>
                 <Typography variant='h5' noWrap component='div' align='center' sx={{ flexGrow: 1 }}>
                     Menu
@@ -34,7 +34,7 @@ function DrawerItemList() {
                 m: 1,
                 backgroundColor: 'background.default',
                 borderRadius: '8px',
-                minHeight: 'calc(100vh - 80px)' // 80 px equals toolbar height plus paddings and margins
+                flexGrow: 1
             }}>
                 <List>
                     <ListItem key='dashboard' disablePadding>
@@ -72,7 +72,7 @@ function DrawerItemList() {
                 </ListItemButton>
                 <Collapse in={open} timeout='auto' unmountOnExit>
                     <List component='div' disablePadding sx={{ pl: 1 }}>
-                        <ListItemButton>
+                        <ListItemButton component={Link} to='/products'>
                             <ListItemIcon>
                                 <ShoppingBasketOutlinedIcon />
                             </ListItemIcon>
