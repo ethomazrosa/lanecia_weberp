@@ -105,16 +105,7 @@ function ResponsibleCompany() {
                     <SaveOutlinedIcon />
                 </IconButton>
             </Toolbar>
-            <Container
-                component='main'
-                maxWidth='lg'
-                disableGutters
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    mt: 2
-                }}>
+            <Container component='main' maxWidth='lg' disableGutters sx={{ mt: 2 }}>
                 <Box component='form' id='form'>
                     <Grid container justifyContent='start' columnSpacing={2} rowSpacing={2}>
                         <Grid item xs={12}>

@@ -93,7 +93,7 @@ function ResponsibleCompany() {
                                         sx={{ height: 125, objectFit: 'contain' }}
                                     />
                                 </CardActionArea>
-                                <CardContent sx={{ p: 1, pb: 0, flexGrow: 1 }}>
+                                <CardContent sx={{ px: 1.5, py: 0, flexGrow: 1 }}>
                                     <Typography variant='h6'>
                                         {company.brand_name}
                                     </Typography>
@@ -103,7 +103,7 @@ function ResponsibleCompany() {
                                         {company.mobile_phone}
                                     </Typography>
                                 </CardContent>
-                                <CardActions sx={{ p: 1, pt: 0, alignSelf: 'flex-end' }}>
+                                <CardActions sx={{ pt: 0, alignSelf: 'flex-end' }}>
                                     <IconButton color='error' sx={{ p: 0 }} onClick={() => handleClickDelete(company.id)}>
                                         <DeleteOutlinedIcon />
                                     </IconButton>
