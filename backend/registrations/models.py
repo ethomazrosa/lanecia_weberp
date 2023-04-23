@@ -38,13 +38,14 @@ class ResponsibleCompany(Address, ContactInformation):
 
 
 class Product(models.Model):
-    description = models.CharField(max_length=250, unique=True)
+    name = models.CharField(max_length=50, unique=True)
+    description = models.TextField(max_length=1000)
     ncm_naladish = models.PositiveSmallIntegerField(blank=True, null=True)
     o_cst = models.PositiveSmallIntegerField(blank=True, null=True)
     cfop = models.PositiveSmallIntegerField(blank=True, null=True)
     measurement_unit = models.CharField(max_length=25, blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    profit_percentage = models.DecimalField(max_digits=5, decimal_places=2)
+    profit_percentage = models.DecimalField(max_digits=7, decimal_places=4)
     icms_base_calc = models.DecimalField(
         max_digits=10, decimal_places=2, blank=True, null=True
     )
@@ -62,4 +63,4 @@ class Product(models.Model):
     )
 
     def __str__(self) -> str:
-        return self.description
+        return self.name

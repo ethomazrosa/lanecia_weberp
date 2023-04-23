@@ -116,8 +116,8 @@ function ResponsibleCompany() {
             <Dialog open={openConfirmation} onClose={() => setOpenConfirmation(false)}>
                 <DialogTitle>Tem certeza que deseja excluir a empresa responsável?</DialogTitle>
                 <DialogActions>
-                    <Button onClick={() => setOpenConfirmation(false)} autoFocus>Não</Button>
-                    <Button onClick={deleteCompany}>Sim</Button>
+                    <Button variant='contained' onClick={() => setOpenConfirmation(false)} autoFocus>Não</Button>
+                    <Button variant='outlined' onClick={deleteCompany}>Sim</Button>
                 </DialogActions>
             </Dialog>
         </>

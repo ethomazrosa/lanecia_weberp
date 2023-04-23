@@ -8,7 +8,13 @@ function useGet(url) {
 
     async function get() {
         try {
-            const response = await Axios.get(url, config)
+            let response = await Axios.get(url, config)
+            // [Formik state] Transform null values to empty
+            Object.keys(response.data).forEach(key => {
+                if (response.data[key] == null) {
+                    response.data[key] = ''
+                }
+            })
             return response.data
         } catch (error) {
             throw error
@@ -30,6 +36,12 @@ function usePost(url, isForm = false, isPublic = false) {
     const config = { headers }
 
     async function post(body) {
+        // [Formik state] Transform empty values to null
+        Object.keys(body).forEach(key => {
+            if (body[key] === '') {
+                body[key] = null
+            }
+        })
         try {
             const response = await Axios.post(url, body, config)
             return response.data
@@ -50,6 +62,12 @@ function usePut(url, isForm = false) {
     const config = { headers }
 
     async function put(body) {
+        // [Formik state] Transform empty values to null
+        Object.keys(body).forEach(key => {
+            if (body[key] === '') {
+                body[key] = null
+            }
+        })
         try {
             const response = await Axios.put(url, body, config)
             return response.data

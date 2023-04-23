@@ -14,6 +14,8 @@ function Profile() {
     const navigate = useNavigate()
     const [userCookie] = useCookies([Constants.ID_USER_COOKIE])
     const userId = userCookie[Constants.ID_USER_COOKIE]
+    const userFirstName = userCookie[Constants.FIRST_NAME_COOKIE]
+    const userLastname = userCookie[Constants.LAST_NAME_COOKIE]
     const [loading, setLoading] = useState(true)
     const [formData, setFormData] = useState({})
     const putProfile = usePut(`http://127.0.0.1:8000/users/profiles/${userId}/`, true)
@@ -83,7 +85,7 @@ function Profile() {
                     }}
                 >
                     <Typography component='h1' variant='h5'>
-                        Perfil
+                        Perfil de {userFirstName + ' ' + userLastname}
                     </Typography>
                     <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1, width: '100%' }}>
                         <Grid container>
