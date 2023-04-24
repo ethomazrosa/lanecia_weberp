@@ -2,24 +2,22 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
     Typography, Toolbar, IconButton, TextField, Dialog, DialogTitle,
-    Box, Container, Grid, InputAdornment, DialogActions, Button,
+    Box, Container, Grid, DialogActions, Button,
 } from '@mui/material'
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined'
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 import { useFormik } from 'formik'
-import { object, string, number } from 'yup'
+import { object, string } from 'yup'
+import { NumericFormat } from 'react-number-format'
 import { useDelete, useGet, usePost, usePut } from '../hooks/useApi'
 import { ProgressBar } from '../components'
 
 const validationSchema = object({
     name: string().required('Por favor preencha o nome.'),
     description: string().required('Por favor preencha a descrição.'),
-    price: number().required('Por favor preencha o preço.'),
-    profit_percentage: number().required('Por favor preencha a % de lucro.'),
-    ncm_naladish: number().positive().integer().max(99999999, 'NCM/Naladish deve conter, no máximo 8 dígitos.'),
-    o_cst: number().positive().integer().max(999, 'O/CST deve conter, no máximo 3 dígitos.'),
-    cfop: number().positive().integer().max(9999, 'CFOP deve conter, no máximo 4 dígitos.'),
+    price: string().required('Por favor preencha o preço.'),
+    profit_percentage: string().required('Por favor preencha a % de lucro.'),
 })
 
 const emptyProduct = {
@@ -158,130 +156,152 @@ function Product() {
                             />
                         </Grid>
                         <Grid item xs={6} sm={4} lg={3}>
-                            <TextField
-                                name='price'
+                            <NumericFormat
+                                id='price'
                                 label='Valor de Compra'
                                 fullWidth
-                                type='number'
-                                InputProps={{ startAdornment: <InputAdornment position='start'>R$</InputAdornment>, }}
+                                customInput={TextField}
+                                thousandSeparator='.'
+                                decimalSeparator=','
+                                decimalScale={2}
+                                fixedDecimalScale
+                                prefix='R$ '
+                                allowNegative={false}
+                                onValueChange={v => formik.setFieldValue('price', v.floatValue)}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.price}
                                 error={formik.touched.price && Boolean(formik.errors.price)}
                                 helperText={formik.touched.price && formik.errors.price}
-                                {...formik.getFieldProps('price')}
                             />
                         </Grid>
                         <Grid item xs={6} sm={4} lg={1.5}>
-                            <TextField
-                                name='profit_percentage'
+                            <NumericFormat
+                                id='profit_percentage'
                                 label='% de Lucro'
                                 fullWidth
-                                type='number'
-                                InputProps={{ endAdornment: <InputAdornment position='end'>%</InputAdornment>, }}
+                                customInput={TextField}
+                                decimalSeparator=','
+                                decimalScale={2}
+                                suffix='%'
+                                allowNegative={false}
+                                onValueChange={v => formik.setFieldValue('profit_percentage', v.floatValue)}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.profit_percentage}
                                 error={formik.touched.profit_percentage && Boolean(formik.errors.profit_percentage)}
                                 helperText={formik.touched.profit_percentage && formik.errors.profit_percentage}
-                                {...formik.getFieldProps('profit_percentage')}
                             />
                         </Grid>
                         <Grid item xs={6} sm={4} lg={2.5}>
                             <TextField
-                                name='measurement_unit'
+                                id='measurement_unit'
                                 label='Unidade de Medida'
                                 fullWidth
-                                error={formik.touched.measurement_unit && Boolean(formik.errors.measurement_unit)}
-                                helperText={formik.touched.measurement_unit && formik.errors.measurement_unit}
                                 {...formik.getFieldProps('measurement_unit')}
                             />
                         </Grid>
                         <Grid item xs={6} sm={3} lg={2}>
                             <TextField
-                                name='ncm_naladish'
+                                id='ncm_naladish'
                                 label='NCM/Naladish'
                                 fullWidth
-                                type='number'
-                                error={formik.touched.ncm_naladish && Boolean(formik.errors.ncm_naladish)}
-                                helperText={formik.touched.ncm_naladish && formik.errors.ncm_naladish}
                                 {...formik.getFieldProps('ncm_naladish')}
                             />
                         </Grid>
                         <Grid item xs={6} sm={2} lg={1.5}>
                             <TextField
-                                name='o_cst'
+                                id='o_cst'
                                 label='O/CST'
                                 fullWidth
-                                type='number'
-                                error={formik.touched.o_cst && Boolean(formik.errors.o_cst)}
-                                helperText={formik.touched.o_cst && formik.errors.o_cst}
                                 {...formik.getFieldProps('o_cst')}
                             />
                         </Grid>
                         <Grid item xs={6} sm={3} lg={1.5}>
                             <TextField
-                                name='cfop'
+                                id='cfop'
                                 label='CFOP'
                                 fullWidth
-                                type='number'
-                                error={formik.touched.cfop && Boolean(formik.errors.cfop)}
-                                helperText={formik.touched.cfop && formik.errors.cfop}
                                 {...formik.getFieldProps('cfop')}
                             />
                         </Grid>
                         <Grid item xs={6} sm={4} lg={3}>
-                            <TextField
-                                name='icms_base_calc'
+                            <NumericFormat
+                                id='icms_base_calc'
                                 label='Base de Cáluclo ICMS'
                                 fullWidth
-                                type='number'
-                                InputProps={{ startAdornment: <InputAdornment position='start'>R$</InputAdornment>, }}
-                                error={formik.touched.icms_base_calc && Boolean(formik.errors.icms_base_calc)}
-                                helperText={formik.touched.icms_base_calc && formik.errors.icms_base_calc}
-                                {...formik.getFieldProps('icms_base_calc')}
+                                customInput={TextField}
+                                thousandSeparator='.'
+                                decimalSeparator=','
+                                decimalScale={2}
+                                fixedDecimalScale
+                                prefix='R$ '
+                                allowNegative={false}
+                                onValueChange={v => formik.setFieldValue('icms_base_calc', v.floatValue)}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.icms_base_calc}
                             />
                         </Grid>
                         <Grid item xs={6} sm={4} lg={3}>
-                            <TextField
-                                name='icms_price'
+                            <NumericFormat
+                                id='icms_price'
                                 label='Valor ICMS'
                                 fullWidth
-                                type='number'
-                                InputProps={{ startAdornment: <InputAdornment position='start'>R$</InputAdornment>, }}
-                                error={formik.touched.icms_price && Boolean(formik.errors.icms_price)}
-                                helperText={formik.touched.icms_price && formik.errors.icms_price}
-                                {...formik.getFieldProps('icms_price')}
+                                customInput={TextField}
+                                thousandSeparator='.'
+                                decimalSeparator=','
+                                decimalScale={2}
+                                fixedDecimalScale
+                                prefix='R$ '
+                                allowNegative={false}
+                                onValueChange={v => formik.setFieldValue('icms_price', v.floatValue)}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.icms_price}
                             />
                         </Grid>
                         <Grid item xs={6} sm={4} lg={1.5}>
-                            <TextField
-                                name='icms_rate'
+                            <NumericFormat
+                                id='icms_rate'
                                 label='Alíquota ICMS'
                                 fullWidth
-                                type='number'
-                                InputProps={{ endAdornment: <InputAdornment position='end'>%</InputAdornment>, }}
-                                error={formik.touched.icms_rate && Boolean(formik.errors.icms_rate)}
-                                helperText={formik.touched.icms_rate && formik.errors.icms_rate}
-                                {...formik.getFieldProps('icms_rate')}
+                                customInput={TextField}
+                                decimalSeparator=','
+                                decimalScale={2}
+                                suffix='%'
+                                allowNegative={false}
+                                onValueChange={v => formik.setFieldValue('icms_rate', v.floatValue)}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.icms_rate}
                             />
                         </Grid>
                         <Grid item xs={6} sm={4} lg={3}>
-                            <TextField
-                                name='ipi_price'
+                            <NumericFormat
+                                id='ipi_price'
                                 label='Valor IPI'
                                 fullWidth
-                                type='number'
-                                InputProps={{ startAdornment: <InputAdornment position='start'>R$</InputAdornment>, }}
-                                error={formik.touched.ipi_price && Boolean(formik.errors.ipi_price)}
-                                helperText={formik.touched.ipi_price && formik.errors.ipi_price}
-                                {...formik.getFieldProps('ipi_price')}
+                                customInput={TextField}
+                                thousandSeparator='.'
+                                decimalSeparator=','
+                                decimalScale={2}
+                                fixedDecimalScale
+                                prefix='R$ '
+                                allowNegative={false}
+                                onValueChange={v => formik.setFieldValue('ipi_price', v.floatValue)}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.ipi_price}
                             />
                         </Grid>
                         <Grid item xs={6} sm={4} lg={1.5}>
-                            <TextField
-                                name='ipi_rate'
+                            <NumericFormat
+                                id='ipi_rate'
                                 label='Alíquota IPI'
                                 fullWidth
-                                type='number'
-                                InputProps={{ endAdornment: <InputAdornment position='end'>%</InputAdornment>, }}
-                                error={formik.touched.ipi_rate && Boolean(formik.errors.ipi_rate)}
-                                helperText={formik.touched.ipi_rate && formik.errors.ipi_rate}
-                                {...formik.getFieldProps('ipi_rate')}
+                                customInput={TextField}
+                                decimalSeparator=','
+                                decimalScale={2}
+                                suffix='%'
+                                allowNegative={false}
+                                onValueChange={v => formik.setFieldValue('ipi_rate', v.floatValue)}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.ipi_rate}
                             />
                         </Grid>
                     </Grid>
