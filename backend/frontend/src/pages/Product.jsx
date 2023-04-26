@@ -9,7 +9,7 @@ import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 import { useFormik } from 'formik'
 import { object, string } from 'yup'
-import { NumericFormat } from 'react-number-format'
+import { NumericFormat, PatternFormat } from 'react-number-format'
 import { useDelete, useGet, usePost, usePut } from '../hooks/useApi'
 import { ProgressBar } from '../components'
 
@@ -200,11 +200,16 @@ function Product() {
                             />
                         </Grid>
                         <Grid item xs={6} sm={3} lg={2}>
-                            <TextField
+                            <PatternFormat
                                 id='ncm_naladish'
                                 label='NCM/Naladish'
                                 fullWidth
-                                {...formik.getFieldProps('ncm_naladish')}
+                                customInput={TextField}
+                                format='####.##.##'
+                                mask='_'
+                                onValueChange={v => formik.setFieldValue('ncm_naladish', v.floatValue)}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.ncm_naladish}
                             />
                         </Grid>
                         <Grid item xs={6} sm={2} lg={1.5}>

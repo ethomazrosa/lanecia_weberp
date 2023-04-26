@@ -6,6 +6,8 @@ import ResponsibleCompany from './ResponsibleCompany'
 import ResponsibleCompanyList from './ResponsibleCompanyList'
 import ProductList from './ProductList'
 import Product from './Product'
+import ServiceList from './ServiceList'
+import Service from './Service'
 
 export {
     Auth,
@@ -16,4 +18,6 @@ export {
     ResponsibleCompanyList,
     ProductList,
     Product,
+    ServiceList,
+    Service,
 }

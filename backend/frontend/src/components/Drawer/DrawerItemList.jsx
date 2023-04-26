@@ -78,7 +78,7 @@ function DrawerItemList() {
                             </ListItemIcon>
                             <ListItemText primary='Produtos' />
                         </ListItemButton>
-                        <ListItemButton>
+                        <ListItemButton component={Link} to='/services'>
                             <ListItemIcon>
                                 <EngineeringOutlinedIcon />
                             </ListItemIcon>
