@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ..models import Product, ResponsibleCompany, Service
+from ..models import Customer, Product, ResponsibleCompany, Service
 
 
 class ResponsibleCompanySerializer(serializers.ModelSerializer):
@@ -18,4 +18,10 @@ class ProductSerializer(serializers.ModelSerializer):
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
+        fields = "__all__"
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
         fields = "__all__"

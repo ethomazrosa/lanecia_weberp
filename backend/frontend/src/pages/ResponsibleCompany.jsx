@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import {
     Typography, Toolbar, IconButton, Container, Box,
-    Grid, Button, TextField
+    Grid, Button, TextField, Snackbar, Alert,
 } from '@mui/material'
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined'
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined'
@@ -15,6 +15,8 @@ function ResponsibleCompany() {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
     const [formData, setFormData] = useState({})
+    const [errorMessage, setErrorMessage] = useState('')
+    const [openSnackbar, setOpenSnackbar] = useState(false)
     const getResponsibleCompany = useGet(`http://127.0.0.1:8000/registrations/responsible_companies/${params.id}/`)
     const putResponsibleCompany = usePut(`http://127.0.0.1:8000/registrations/responsible_companies/${params.id}/`, true)
     const postResponsibleCompany = usePost(`http://127.0.0.1:8000/registrations/responsible_companies/`, true)
@@ -35,7 +37,8 @@ function ResponsibleCompany() {
                     setLoading(false)
                 })
                 .catch(error => {
-                    console.log(error.response.data)
+                    setErrorMessage(JSON.stringify(error.response.data))
+                    setOpenSnackbar(true)
                     setLoading(false)
                 })
         } else {
@@ -58,7 +61,8 @@ function ResponsibleCompany() {
                             navigate('/responsible_companies/')
                         })
                         .catch(error => {
-                            console.log(error.response.data)
+                            setErrorMessage(JSON.stringify(error.response.data))
+                            setOpenSnackbar(true)
                             setLoading(false)
                         })
                 } else {
@@ -68,7 +72,8 @@ function ResponsibleCompany() {
                             navigate('/responsible_companies/')
                         })
                         .catch(error => {
-                            console.log(error.response.data)
+                            setErrorMessage(JSON.stringify(error.response.data))
+                            setOpenSnackbar(true)
                             setLoading(false)
                         })
                 }
@@ -79,7 +84,8 @@ function ResponsibleCompany() {
                         navigate('/responsible_companies/')
                     })
                     .catch(error => {
-                        console.log(error.response.data)
+                        setErrorMessage(JSON.stringify(error.response.data))
+                        setOpenSnackbar(true)
                         setLoading(false)
                     })
             }
@@ -303,6 +309,11 @@ function ResponsibleCompany() {
                     </Grid>
                 </Box>
             </Container>
+            <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={() => setOpenSnackbar(false)}>
+                <Alert severity="error" sx={{ width: '100%' }}>
+                    {errorMessage}
+                </Alert>
+            </Snackbar>
         </>
     )
 }

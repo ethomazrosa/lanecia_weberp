@@ -9,12 +9,12 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { useGet } from '../hooks/useApi'
 import { ProgressBar } from '../components'
 
-function ProductList() {
+function CustomerList() {
 
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
-    const getProducts = useGet('http://127.0.0.1:8000/registrations/products/')
-    const [products, setProducts] = useState([])
+    const getCustomers = useGet('http://127.0.0.1:8000/registrations/customers/')
+    const [customers, setCustomers] = useState([])
 
     const columns = [
         {
@@ -31,45 +31,57 @@ function ProductList() {
             headerClassName: 'header',
             field: 'name',
             headerName: 'Nome',
-            flex: 8
+            flex: 8,
+            valueGetter: (params) => {
+                if (params.row.person_type === 'PF') {
+                    return params.row.name
+                } else {
+                    return params.row.brand_name
+                }
+            }
         },
         {
             headerClassName: 'header',
-            field: 'price',
-            headerName: 'Valor de Compra',
-            flex: 4,
+            field: 'identification_number',
+            headerName: 'CPF/CNPJ',
+            flex: 8,
             type: 'number',
-            valueFormatter: (params) => {
-                return Number(params.value).toLocaleString(undefined, { style: 'currency', currency: 'BRL' })
-            },
+            valueGetter: (params) => {
+                if (params.row.person_type === 'PF') {
+                    return String(params.row.identification_number)
+                        .replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
+                } else {
+                    return String(params.row.identification_number)
+                        .replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5')
+                }
+            }
         },
     ]
     if (useMediaQuery(useTheme().breakpoints.up('sm'))) {
         columns.push(
             {
                 headerClassName: 'header',
-                field: 'profit_percentage',
-                headerName: '% Lucro',
-                flex: 1,
+                field: 'mobile_phone',
+                headerName: 'Telefone Celular',
+                flex: 6,
                 type: 'number',
-                valueFormatter: (params) => {
-                    const valueFormatted = Number(params.value).toLocaleString()
-                    return `${valueFormatted}%`
-                },
+                valueFormatter: (params) =>{
+                    return String(params.value).replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3')
+                }
             },
             {
                 headerClassName: 'header',
-                field: 'measurement_unit',
-                headerName: 'Un. Med.',
-                flex: 1
+                field: 'email',
+                headerName: 'E-Mail',
+                flex: 6
             },
         )
     }
 
     useEffect(() => {
-        getProducts()
+        getCustomers()
             .then(response => {
-                setProducts(response)
+                setCustomers(response)
                 setLoading(false)
             })
             .catch(error => {
@@ -80,7 +92,7 @@ function ProductList() {
     }, [])
 
     const handleRowClick = (params) => {
-        navigate(`/products/${params.id}`)
+        navigate(`/customers/${params.id}`)
     }
 
     if (loading) {
@@ -94,9 +106,9 @@ function ProductList() {
                     <ArrowBackOutlinedIcon />
                 </IconButton>
                 <Typography variant='h6' component='div' sx={{ flexGrow: 1, textAlign: 'center' }}>
-                    Produtos
+                    Clientes
                 </Typography>
-                <IconButton color='inherit' edge='end' component={Link} to='/products/:new'>
+                <IconButton color='inherit' edge='end' component={Link} to='/customers/:new'>
                     <AddIcon />
                 </IconButton>
             </Toolbar>
@@ -110,7 +122,7 @@ function ProductList() {
                     },
                 }}>
                     <DataGrid
-                        rows={products}
+                        rows={customers}
                         columns={columns}
                         onRowClick={handleRowClick}
                         editMode='row'
@@ -140,4 +152,4 @@ function ProductList() {
     )
 }
 
-export default ProductList
+export default CustomerList

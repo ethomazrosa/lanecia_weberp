@@ -1,14 +1,44 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 # Create your models here.
 class Address(models.Model):
+    class State(models.TextChoices):
+        AC = "AC", _("Acre")
+        AL = "AL", _("Alagoas")
+        AP = "AP", _("Amapá")
+        AM = "AM", _("Amazonas")
+        BA = "BA", _("Bahia")
+        CE = "CE", _("Ceará")
+        DF = "DF", _("Distrito Federal")
+        ES = "ES", _("Espírito Santo")
+        GO = "GO", _("Goiás")
+        MA = "MA", _("Maranhão")
+        MT = "MT", _("Mato Grosso")
+        MS = "MS", _("Mato Grosso do Sul")
+        MG = "MG", _("Minas Gerais")
+        PA = "PA", _("Pará")
+        PB = "PB", _("Paraíba")
+        PR = "PR", _("Paraná")
+        PE = "PE", _("Pernambuco")
+        PI = "PI", _("Piauí")
+        RJ = "RJ", _("Rio de Janeiro")
+        RN = "RN", _("Rio Grande do Norte")
+        RS = "RS", _("Rio Grande do Sul")
+        RO = "RO", _("Rondônia")
+        RR = "RR", _("Roraima")
+        SC = "SC", _("Santa Catarina")
+        SP = "SP", _("São Paulo")
+        SE = "SE", _("Sergipe")
+        TO = "TO", _("Tocantins")
+
     address_name = models.CharField(max_length=250)
     address_number = models.SmallIntegerField()
     address_complement = models.CharField(max_length=250, blank=True, null=True)
     neighborhood = models.CharField(max_length=250)
     city = models.CharField(max_length=250)
-    state = models.CharField(max_length=2)
+    state = models.CharField(max_length=2, choices=State.choices)
     postal_code = models.SmallIntegerField()
 
     class Meta:
@@ -73,3 +103,25 @@ class Service(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class Customer(Address, ContactInformation):
+    class PersonType(models.TextChoices):
+        PF = "PF", _("Pessoa Física")
+        PJ = "PJ", _("Pessoa Jurídica")
+
+    person_type = models.CharField(
+        max_length=2, choices=PersonType.choices, default=PersonType.PJ
+    )
+    identification_number = models.PositiveSmallIntegerField(unique=True)
+    name = models.CharField(max_length=250, blank=True, null=True)
+    company_name = models.CharField(max_length=250, blank=True, null=True)
+    brand_name = models.CharField(max_length=250, blank=True, null=True)
+    municipal_registration = models.PositiveSmallIntegerField(blank=True, null=True)
+    state_registration = models.PositiveSmallIntegerField(blank=True, null=True)
+
+    def __str__(self) -> str:
+        if self.person_type == "PF":
+            return self.name
+        else:
+            return self.brand_name

@@ -8,6 +8,8 @@ import ProductList from './ProductList'
 import Product from './Product'
 import ServiceList from './ServiceList'
 import Service from './Service'
+import CustomerList from './CustomerList'
+import Customer from './Customer'
 
 export {
     Auth,
@@ -20,4 +22,6 @@ export {
     Product,
     ServiceList,
     Service,
+    CustomerList,
+    Customer,
 }
