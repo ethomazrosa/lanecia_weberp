@@ -7,17 +7,19 @@ import { useGet, usePut } from '../hooks/useApi'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { Constants } from '../utils/constants'
-import ProgressBar from './ProgressBar'
+import { ProgressBar } from '../components'
 
 function Profile() {
 
     const navigate = useNavigate()
     const [userCookie] = useCookies([Constants.ID_USER_COOKIE])
     const userId = userCookie[Constants.ID_USER_COOKIE]
+    const userFirstName = userCookie[Constants.FIRST_NAME_COOKIE]
+    const userLastname = userCookie[Constants.LAST_NAME_COOKIE]
     const [loading, setLoading] = useState(true)
     const [formData, setFormData] = useState({})
-    const [putProfile] = usePut(`http://127.0.0.1:8000/users/profiles/${userId}/`, true)
-    const [getProfile] = useGet(`http://127.0.0.1:8000/users/profiles/${userId}/`)
+    const putProfile = usePut(`http://127.0.0.1:8000/users/profiles/${userId}/`, true)
+    const getProfile = useGet(`http://127.0.0.1:8000/users/profiles/${userId}/`)
 
     function handleChange(e) {
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -75,9 +77,7 @@ function Profile() {
         <>
             <Container component='main' maxWidth='sm'>
                 <Paper
-                    elevation={5}
                     sx={{
-                        marginTop: 4,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -85,7 +85,7 @@ function Profile() {
                     }}
                 >
                     <Typography component='h1' variant='h5'>
-                        Perfil
+                        Perfil de {userFirstName + ' ' + userLastname}
                     </Typography>
                     <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1, width: '100%' }}>
                         <Grid container>

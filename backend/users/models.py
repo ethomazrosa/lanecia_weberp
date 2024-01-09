@@ -1,12 +1,7 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.db import models
 
 # Models
-
-
-class User(AbstractUser):
-    email = models.EmailField(unique=True)
-
 
 class Profile(models.Model):
     employee = models.OneToOneField(User, on_delete=models.CASCADE)

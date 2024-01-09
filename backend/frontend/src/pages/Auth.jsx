@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Alert, Avatar, Container, Box, Paper, Typography, TextField, Button } from '@mui/material'
+import { Alert, Avatar, Grid, Box, Paper, Typography, TextField, Button } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { useCookies } from 'react-cookie'
 import { Constants } from '../utils/constants'
 import { useNavigate } from 'react-router-dom'
 import { usePost, useGet } from '../hooks/useApi'
-import ProgressBar from './ProgressBar'
+import { ProgressBar } from '../components'
 
 function Auth() {
 
@@ -14,8 +14,8 @@ function Auth() {
     // eslint-disable-next-line
     const [token, setToken] = useCookies([Constants.TOKEN_NAME_COOKIE])
     const [errorMessage, setErrorMessage] = useState('')
-    const [postLogin] = usePost('http://127.0.0.1:8000/auth/', true)
-    const [getCurrentUser] = useGet('http://127.0.0.1:8000/users/current_user/')
+    const postLogin = usePost('http://127.0.0.1:8000/auth/', false, true)
+    const getCurrentUser = useGet('http://127.0.0.1:8000/users/current_user/')
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -38,11 +38,11 @@ function Auth() {
         if (token[Constants.TOKEN_NAME_COOKIE] && token[Constants.TOKEN_NAME_COOKIE] !== undefined) {
             getCurrentUser()
                 .then(response => {
-                    setToken(Constants.ID_USER_COOKIE, response[0]["id"], { path: '/' })
-                    setToken(Constants.USERNAME_COOKIE, response[0]["username"], { path: '/' })
-                    setToken(Constants.EMAIL_COOKIE, response[0]["email"], { path: '/' })
-                    setToken(Constants.FIRST_NAME_COOKIE, response[0]["first_name"], { path: '/' })
-                    setToken(Constants.LAST_NAME_COOKIE, response[0]["last_name"], { path: '/' })
+                    setToken(Constants.ID_USER_COOKIE, response[0]['id'], { path: '/' })
+                    setToken(Constants.USERNAME_COOKIE, response[0]['username'], { path: '/' })
+                    setToken(Constants.EMAIL_COOKIE, response[0]['email'], { path: '/' })
+                    setToken(Constants.FIRST_NAME_COOKIE, response[0]['first_name'], { path: '/' })
+                    setToken(Constants.LAST_NAME_COOKIE, response[0]['last_name'], { path: '/' })
                     setLoading(false)
                     navigate('/')
                 })
@@ -59,15 +59,19 @@ function Auth() {
     }
 
     return (
-        <Container component='main' maxWidth='xs'>
+        <Grid
+            container
+            alignItems='center'
+            justifyContent='center'
+            sx={{ backgroundColor: 'primary.main', minHeight: '100vh' }}>
             <Paper
                 elevation={5}
                 sx={{
-                    marginTop: 8,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    padding: '2rem'
+                    padding: '2rem',
+                    maxWidth: '444px'
                 }}
             >
                 <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -111,7 +115,7 @@ function Auth() {
                     </Button>
                 </Box>
             </Paper>
-        </Container>
+        </Grid>
     )
 }
 
